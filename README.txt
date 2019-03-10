@@ -62,12 +62,14 @@ df -h
 
 #
 # Install the latest libmemkind for the volatile pmem example.
+# The extra stuff in front of ./build.sh prevents running the tests.
+# On hackathon VMs, the tests will run the system out of memory.
 #
 cd
 sudo apt-get install libnuma-dev libtool
 git clone https://github.com/memkind/memkind
 cd memkind
-./build.sh
+MAKEOPTS=check_PROGRAMS= ./build.sh
 sudo make install
 
 #
