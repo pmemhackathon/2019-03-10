@@ -1,7 +1,7 @@
 #
 # Makefile for word frequency count examples
 #
-PROGS = raw freq freq_mt freq_pmem freq_pmem_print freq_pmem_cpp
+PROGS = raw volatile_pmem freq freq_mt freq_pmem freq_pmem_print freq_pmem_cpp
 CFLAGS = -g -Wall -Werror -std=gnu99
 CXXFLAGS = -g -Wall -Werror -std=gnu++11
 
@@ -12,6 +12,9 @@ freq_pmem freq_pmem_print freq_pmem_cpp: LIBS = -lpmem -lpmemobj -pthread
 
 raw: raw.o
 	$(CC) -o $@ $(CFLAGS) $^ $(LIBS)
+
+volatile_pmem: volatile_pmem.o
+	$(CC) -o $@ $(CFLAGS) $^ -L/usr/local/lib -Wl,-rpath -Wl,/usr/local/lib -lmemkind
 
 freq: freq.o
 	$(CC) -o $@ $(CFLAGS) $^ $(LIBS)

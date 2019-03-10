@@ -61,6 +61,16 @@ sudo chmod 777 /mnt/pmem-fsdax
 df -h
 
 #
+# Install the latest libmemkind for the volatile pmem example.
+#
+cd
+sudo apt-get install libnuma-dev libtool
+git clone https://github.com/memkind/memkind
+cd memkind
+./build.sh
+sudo make install
+
+#
 # Some of the examples use PMDK.  Many distros include PMDK, but
 # it takes some time for the latest version to flow intro the distros
 # so here are the steps to build the latest source and install it in
@@ -101,6 +111,12 @@ dd if=/dev/zero of=/mnt/pmem-fsdax/daxfile bs=4k count=1
 od -c /mnt/pmem-fsdax/daxfile
 ./raw /mnt/pmem-fsdax/daxfile
 od -c /mnt/pmem-fsdax/daxfile
+
+#
+# volatile_pmem.c demonstrates using libmemkind to allocate both
+# normal memory and pmem for volatile use.  nothing persistent here!
+#
+./volatile_pmem /mnt/pmem-fsdax 100
 
 #
 # freq.c
