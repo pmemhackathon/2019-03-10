@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 	retval = memkind_create_pmem(argv[1], pmem_size, &pmem_kind);
 	if (retval) {
 		memkind_error_message(retval, message, MAXMSG);
-		err(1, "memkind_create_pmem: %s", message);
+		errx(1, "memkind_create_pmem: %s", message);
 	}
 
 	/* allocation examples without NULL checks for brevity... */
